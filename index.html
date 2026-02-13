@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Speak Up - A safe space for shy and non-native speakers to gain confidence through supportive, judgment-free sessions.">
+  <title>Speak Up - Your Voice Matters</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon & Manifest -->
+  <link rel="icon" type="image/jpeg" href="speak up logo.jpg">
+  <link rel="apple-touch-icon" href="speak up logo.jpg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- EmailJS for SMTP Integration -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="#home" class="logo">
+        <span class="logo-icon"><i data-lucide="mic"></i></span>
+        <span>Speak Up</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#sessions" data-i18n="nav.sessions">Sessions</a></li>
+          <li><a href="#voices" data-i18n="nav.voices">Voices</a></li>
+          <li><a href="#join" data-i18n="nav.join">Join Us</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i data-lucide="sun" class="sun-icon"></i>
+            <i data-lucide="moon" class="moon-icon"></i>
+          </button>
+
+          <div class="language-switcher-wrapper">
+            <button class="language-switcher" id="languageSwitcher">
+              <i data-lucide="languages" size="16"></i>
+              <span id="currentLang">EN</span>
+              <i data-lucide="chevron-down" size="16" class="chevron"></i>
+            </button>
+            <div class="language-dropdown" id="languageDropdown">
+              <button class="language-option" data-lang="en">
+                <span class="lang-name">English</span>
+              </button>
+              <button class="language-option" data-lang="ar">
+                <span class="lang-name">العربية</span>
+              </button>
+              <button class="language-option" data-lang="fr">
+                <span class="lang-name">Français</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home/Hero Section -->
+  <section id="home">
+    <div class="hero-content">
+      <h1 class="hero-headline" data-i18n="hero.headline">Speak Up.</h1>
+      <h2 class="hero-subheadline" data-i18n="hero.subheadline">Your voice matters.</h2>
+      <p class="hero-description" data-i18n="hero.description">
+        A safe space for shy and non-native speakers to gain confidence, find their voice, and grow without judgment.
+      </p>
+      <div class="hero-cta">
+        <a href="#join" class="btn btn-primary" data-i18n="hero.cta">Join a Session</a>
+        <a href="#about" class="btn btn-secondary" data-i18n="hero.ctaSecondary">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Sound Wave Animation -->
+    <div class="sound-wave">
+      <svg class="wave" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,100 Q150,50 300,100 T600,100 T900,100 T1200,100 L1200,200 L0,200 Z" />
+      </svg>
+      <svg class="wave" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,120 Q150,80 300,120 T600,120 T900,120 T1200,120 L1200,200 L0,200 Z" />
+      </svg>
+      <svg class="wave" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,140 Q150,100 300,140 T600,140 T900,140 T1200,140 L1200,200 L0,200 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title" data-i18n="about.title">Why Speak Up Exists</h2>
+        <p class="section-subtitle" data-i18n="about.subtitle">Because your voice deserves to be heard</p>
+      </div>
+
+      <p class="about-intro fade-in" data-i18n="about.intro">
+        We know how it feels—the fear of speaking, the worry about judgment, the struggle to express yourself.
+        Speak Up was created for everyone who wants to improve but needs a safe, supportive space to do it.
+      </p>
+
+      <div class="values-grid" id="valuesGrid">
+        <!-- Values will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Sessions Section -->
+  <section id="sessions">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title" data-i18n="sessions.title">Our Speaking Sessions</h2>
+        <p class="section-subtitle" data-i18n="sessions.subtitle">Find the right session for your journey</p>
+      </div>
+
+      <div class="sessions-grid" id="sessionsGrid">
+        <!-- Sessions will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Voices Section -->
+  <section id="voices">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title" data-i18n="voices.title">Community Voices</h2>
+        <p class="section-subtitle" data-i18n="voices.subtitle">Real stories from our members</p>
+      </div>
+
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <!-- Testimonials will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Join/Contact Section -->
+  <section id="join">
+    <div class="container join-container">
+      <div class="join-intro fade-in">
+        <h2 class="section-title" data-i18n="join.title">Ready to Find Your Voice?</h2>
+        <p class="section-subtitle" data-i18n="join.subtitle">
+          Join our supportive community today. No pressure, no judgment—just growth.
+        </p>
+      </div>
+
+      <div class="contact-wrapper">
+        <!-- Contact Form -->
+        <div class="contact-form fade-in">
+          <h3 data-i18n="join.formTitle">Registration Form</h3>
+          <form id="contactForm">
+
+            <!-- Basic Information -->
+            <div class="form-group">
+              <label for="name" data-i18n="join.form.name">Full Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="age" data-i18n="join.form.age">Age</label>
+              <input type="number" id="age" name="age" required min="13">
+            </div>
+
+            <div class="form-group">
+              <label for="email" data-i18n="join.form.email">Email Address</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" data-i18n="join.form.phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+213 555 123 456">
+            </div>
+
+            <div class="form-group">
+              <label for="level" data-i18n="join.form.level">Current English Level</label>
+              <select id="level" name="level" required>
+                <option value="" disabled selected data-i18n="join.discoveryOptions.placeholder">Select an option
+                </option>
+                <option value="beginner" data-i18n="join.form.levelOptions.beginner">Beginner</option>
+                <option value="intermediate" data-i18n="join.form.levelOptions.intermediate">Intermediate</option>
+                <option value="advanced" data-i18n="join.form.levelOptions.advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="aboutMe" data-i18n="join.form.aboutMe">Tell us about yourself</label>
+              <textarea id="aboutMe" name="aboutMe" required
+                data-i18n-attr="placeholder:join.form.aboutMePlaceholder"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="goals" data-i18n="join.form.goals">What do you aim to achieve?</label>
+              <textarea id="goals" name="goals" required
+                data-i18n-attr="placeholder:join.form.goalsPlaceholder"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label data-i18n="join.form.social">Social media username(s) (optional)</label>
+              <p class="form-hint" data-i18n="join.form.section1Note">This helps us communicate and verify real
+                participants.</p>
+              <div class="social-inputs">
+                <div class="input-with-icon">
+                  <i data-lucide="instagram"></i>
+                  <input type="text" id="instagram" name="instagram" placeholder="Instagram: @_____">
+                </div>
+                <div class="input-with-icon">
+                  <i data-lucide="music-2"></i>
+                  <input type="text" id="tiktok" name="tiktok" placeholder="TikTok: @_____">
+                </div>
+              </div>
+            </div>
+
+            <!-- Motivation -->
+            <div class="form-group">
+              <label for="motivation" data-i18n="join.form.motivation">Why do you want to join this English speaking
+                club?</label>
+              <textarea id="motivation" name="motivation" required
+                data-i18n-attr="placeholder:join.form.motivationPlaceholder"></textarea>
+            </div>
+
+            <!-- Values & Agreement -->
+            <div class="form-group checkbox-group">
+              <label class="checkbox-container">
+                <span data-i18n="join.form.agreement">Do you agree to respect all members and maintain a safe,
+                  supportive, and judgment-free environment?</span>
+                <input type="checkbox" id="agreement" name="agreement" required>
+                <div class="agreement-row">
+                  <span class="checkmark"></span>
+                  <span class="agreement-text" data-i18n="join.form.agreementYes">Yes, I agree</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- Discovery -->
+            <div class="form-group">
+              <label for="discovery" data-i18n="join.form.discovery">How did you hear about us?</label>
+              <select id="discovery" name="discovery" required>
+                <option value="" disabled selected data-i18n="join.discoveryOptions.placeholder">Select an option
+                </option>
+                <option value="instagram" data-i18n="join.discoveryOptions.instagram">Instagram</option>
+                <option value="tiktok" data-i18n="join.discoveryOptions.tiktok">TikTok</option>
+                <option value="friend" data-i18n="join.discoveryOptions.friend">Friend</option>
+                <option value="website" data-i18n="join.discoveryOptions.website">Website</option>
+                <option value="other" data-i18n="join.discoveryOptions.other">Other</option>
+              </select>
+            </div>
+            <div class="form-group" id="otherDiscoveryGroup" style="display: none;">
+              <input type="text" id="otherDiscovery" name="otherDiscovery" placeholder="Please specify...">
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-i18n="join.form.submit">
+              Submit Registration
+            </button>
+          </form>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links fade-in">
+          <h3 data-i18n="join.socialTitle">Connect With Us</h3>
+
+          <a href="https://t.me/speeeakup" class="social-item" target="_blank" rel="noopener">
+            <span class="social-icon"><i data-lucide="send"></i></span>
+            <span data-i18n="join.social.telegram">Join our Telegram</span>
+          </a>
+
+          <a href="https://www.instagram.com/speak.up.club_/" class="social-item" target="_blank" rel="noopener">
+            <span class="social-icon"><i data-lucide="instagram"></i></span>
+            <span data-i18n="join.social.instagram">Follow on Instagram</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@speakup.club1?_r=1&_t=ZS-93n0IbPbesP" class="social-item" target="_blank"
+            rel="noopener">
+            <span class="social-icon"><i data-lucide="music-2"></i></span>
+            <span data-i18n="join.social.tiktok">Follow on TikTok</span>
+          </a>
+
+          <a href="https://www.facebook.com/share/17W4UELYZy/" class="social-item" target="_blank" rel="noopener">
+            <span class="social-icon"><i data-lucide="facebook"></i></span>
+            <span data-i18n="join.social.facebook">Follow on Facebook</span>
+          </a>
+
+          <a href="mailto:speakupclubens@gmail.com" class="social-item">
+            <span class="social-icon"><i data-lucide="mail"></i></span>
+            <span>speakupclubens@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-tagline" data-i18n="footer.tagline">Speak Up - Where Every Voice Matters</p>
+    <p class="footer-copyright" data-i18n="footer.copyright">
+      © 2026 Speak Up Club.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
