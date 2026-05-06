@@ -119,11 +119,6 @@ const content = {
                 age: "Age",
                 email: "Email Address",
                 phone: "Phone Number",
-                social: "Social media username(s) (optional)",
-                instagram: "Instagram: @_____",
-                tiktok: "TikTok: @_____",
-                motivation: "Why do you want to join this English speaking club?",
-                motivationPlaceholder: "Write a short paragraph about why you're joining...",
                 agreementHint: "Sets the tone from day one",
                 agreement: "Do you agree to respect all members and maintain a safe, supportive, and judgment-free environment?",
                 agreementYes: "Yes, I agree",
@@ -148,8 +143,8 @@ const content = {
                 other: "Other"
             },
             socialTitle: "Connect With Us",
+            socialSubtitle: "Follow along and stay in the loop",
             social: {
-                telegram: "Join our Telegram",
                 instagram: "Follow on Instagram",
                 tiktok: "Follow on TikTok",
                 facebook: "Follow on Facebook",
@@ -161,7 +156,7 @@ const content = {
         // Footer
         footer: {
             tagline: "Speak Up - Where Every Voice Matters",
-            copyright: "© 2026 Speak Up Club."
+            copyright: "© 2026 ENS Speak Up Club."
         }
     },
 
@@ -179,7 +174,7 @@ const content = {
         hero: {
             headline: "Speak Up",
             subheadline: "Your voice matters",
-            description: "مساحة آمنة للأشخاص الخجولين وغير الناطقين بالعربية لاكتساب الثقة، واكتشاف أصواتهم، والنمو دون حكم.",
+            description: "بيئة داعمة ومساحة آمنة للخجولين وغير الناطقين بالإنجليزية لتطوير مهاراتهم، واكتساب الثقة، والتعبير عن أنفسهم بكل حرية دون خوف من الخطأ أو إطلاق أحكام.",
             cta: "انضم إلى جلسة",
             ctaSecondary: "اعرف المزيد"
         },
@@ -203,7 +198,7 @@ const content = {
                 {
                     icon: "users",
                     title: "مجتمع شامل",
-                    description: "مساحة ترحيبية للمتحدثين الخجولين وغير الناطقين الأصليين وأي شخص يبحث عن صوته."
+                    description: "مساحة ترحيبية للمتحدثين الخجولين، وغير الناطقين بالإنجليزية كأصل، وكل من يسعى لتطوير مهاراته التعبيرية."
                 }
             ]
         },
@@ -284,11 +279,6 @@ const content = {
                 age: "العمر",
                 email: "البريد الإلكتروني",
                 phone: "رقم الهاتف",
-                social: "اسم المستخدم على وسائل التواصل (اختياري)",
-                instagram: "إنستغرام: @_____",
-                tiktok: "تيك توك: @_____",
-                motivation: "لماذا تريد الانضمام إلى هذا النادي للتحدث بالإنجليزية؟",
-                motivationPlaceholder: "اكتب فقرة قصيرة عن سبب انضمامك...",
                 agreementHint: "نحدد التوجه منذ اليوم الأول",
                 agreement: "هل توافق على احترام جميع الأعضاء والحفاظ على بيئة آمنة وداعمة وخالية من الأحكام؟",
                 agreementYes: "نعم، أنا أوافق",
@@ -313,8 +303,8 @@ const content = {
                 other: "آخر"
             },
             socialTitle: "تواصل معنا",
+            socialSubtitle: "تابعونا لتبقوا على اطلاع دائم",
             social: {
-                telegram: "انضم إلى Telegram",
                 instagram: "تابعنا على Instagram",
                 tiktok: "تابعنا على TikTok",
                 facebook: "تابعنا على فيسبوك",
@@ -326,7 +316,7 @@ const content = {
         // التذييل
         footer: {
             tagline: "Speak Up - حيث كل صوت مهم",
-            copyright: "© 2026 نادي Speak Up."
+            copyright: "© 2026 ENS Speak Up club."
         }
     },
 
@@ -449,11 +439,6 @@ const content = {
                 age: "Âge",
                 email: "Adresse e-mail",
                 phone: "Numéro de téléphone",
-                social: "Identifiant(s) réseaux sociaux (optionnel)",
-                instagram: "Instagram: @_____",
-                tiktok: "TikTok: @_____",
-                motivation: "Pourquoi voulez-vous rejoindre ce club d'expression anglaise ?",
-                motivationPlaceholder: "Écrivez un court paragraphe sur vos motivations...",
                 agreementHint: "Donne le ton dès le premier jour",
                 agreement: "Acceptez-vous de respecter tous les membres et de maintenir un environnement sûr, bienveillant et sans jugement ?",
                 agreementYes: "Oui, j'accepte",
@@ -478,8 +463,8 @@ const content = {
                 other: "Autre"
             },
             socialTitle: "Suivez-nous",
+            socialSubtitle: "Suivez-nous pour ne rien manquer",
             social: {
-                telegram: "Rejoindre Telegram",
                 instagram: "Suivre sur Instagram",
                 tiktok: "Suivre sur TikTok",
                 facebook: "Suivre sur Facebook",
@@ -491,7 +476,7 @@ const content = {
         // Footer
         footer: {
             tagline: "Speak Up - Où chaque voix compte",
-            copyright: "© 2026 Club Speak Up."
+            copyright: "© 2026 ENS Speak Up Club."
         }
     }
 };

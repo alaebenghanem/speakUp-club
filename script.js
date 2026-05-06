@@ -1,14 +1,8 @@
-// Language and Interaction Management for Speak Up Website
 
-// ============================================
 // Initialization
-// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide Icons
     lucide.createIcons();
-
-    // Initialize Language
-    setLanguage(currentLanguage);
 
     // Initialize Theme
     const savedTheme = localStorage.getItem('speakUpTheme') || 'dark';
@@ -54,9 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('speakUpTheme', newTheme);
     });
 
-    // EmailJS Initialization
-    // IMPORTANT: Replace "YOUR_PUBLIC_KEY" with your actual EmailJS Public Key
-    emailjs.init("Anm2VV32eh9UB4CDZ");
+    // ── SUPABASE CONFIG ─────────────────────────────────────────────────────
+    const SUPABASE_URL      = 'https://ffkkaxkczubhckvymqiz.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZma2theGtjenViaGNrdnltcWl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3NDA1MTAsImV4cCI6MjA5MzMxNjUxMH0.NGtIAnMH2egQE1mkEV0FL4GLEAMguKeiEnA3rkrmvBw';
+
+    try {
+        window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (err) {
+        console.error('Supabase initialization failed:', err);
+    }
 
     // Discovery "Other" toggle
     const discoverySelect = document.getElementById('discovery');
@@ -75,11 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Scroll Animations
     initScrollAnimations();
+
+    // Initialize Language (Last step to ensure everything is ready)
+    setLanguage(currentLanguage);
 });
 
-// ============================================
 // Language Switching Logic
-// ============================================
 let currentLanguage = localStorage.getItem('speakUpLanguage') || 'en';
 
 function setLanguage(lang) {
@@ -134,7 +135,7 @@ function updateContent() {
 
     // Update attributes (like placeholders)
     document.querySelectorAll('[data-i18n-attr]').forEach(element => {
-        const attrConfig = element.getAttribute('data-i18n-attr'); // e.g., "placeholder:join.form.motivationPlaceholder"
+        const attrConfig = element.getAttribute('data-i18n-attr'); 
         const [attr, keyPath] = attrConfig.split(':');
         const keys = keyPath.split('.');
         let value = contentData;
@@ -208,9 +209,7 @@ function populateTestimonials() {
   `).join('');
 }
 
-// ============================================
 // Scroll Animation Observer
-// ============================================
 let observer;
 
 function initScrollAnimations() {
@@ -236,9 +235,7 @@ function observeElements() {
     });
 }
 
-// ============================================
 // Smooth Scrolling
-// ============================================
 document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     if (link && !link.classList.contains('no-scroll') && link.getAttribute('href')?.startsWith('#')) {
@@ -257,55 +254,53 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ============================================
-// Form Handling (Registration via EmailJS)
-// ============================================
-function handleFormSubmit(e) {
+// Form Handling (Registration via Supabase)
+async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const submitButton = e.target.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
+    const submitButton = document.getElementById('submitBtn');
+    const originalHTML = submitButton.innerHTML;
 
-    // UI Feedback
+    // UI feedback — loading state
     submitButton.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Submitting...';
+    submitButton.disabled = true;
     lucide.createIcons();
 
-    // Collect Data
+    // Collect form data
     const formData = {
-        name: document.getElementById('name').value,
-        age: document.getElementById('age').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        level: document.getElementById('level').value,
-        aboutMe: document.getElementById('aboutMe').value,
-        goals: document.getElementById('goals').value,
-        instagram: document.getElementById('instagram').value,
-        tiktok: document.getElementById('tiktok').value,
-        motivation: document.getElementById('motivation').value,
-        agreement: document.getElementById('agreement').checked ? "Yes" : "No",
-        discovery: document.getElementById('discovery').value,
-        otherDiscovery: document.getElementById('otherDiscovery')?.value || ""
+        name:           document.getElementById('name').value.trim(),
+        age:            parseInt(document.getElementById('age').value, 10),
+        email:          document.getElementById('email').value.trim(),
+        phone:          document.getElementById('phone').value.trim(),
+        level:          document.getElementById('level').value,
+        about_me:       document.getElementById('aboutMe').value.trim(),
+        goals:          document.getElementById('goals').value.trim(),
+        agreement:      document.getElementById('agreement').checked,
+        discovery:      document.getElementById('discovery').value,
+        other_discovery: document.getElementById('otherDiscovery')?.value.trim() || null,
     };
 
-    console.log('Registration Data:', formData);
+    try {
+        const { error } = await window._supabase
+            .from('registrations')
+            .insert([formData]);
 
-    // Send to EmailJS
-    // Replace "YOUR_SERVICE_ID" and "YOUR_TEMPLATE_ID" with your actual IDs
-    emailjs.send("service_yi5gg4t", "template_argjbas", formData)
-        .then(() => {
-            showSuccess(submitButton, originalText, e.target);
-            if (document.getElementById('otherDiscoveryGroup')) {
-                document.getElementById('otherDiscoveryGroup').style.display = 'none';
-            }
-        })
-        .catch((error) => {
-            console.error('FAILED...', error);
-            alert("Application Error: Please replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_PUBLIC_KEY' in script.js to make this work.");
-            submitButton.innerHTML = originalText;
-        });
+        if (error) throw error;
+
+        showSuccess(submitButton, originalHTML, e.target);
+        if (document.getElementById('otherDiscoveryGroup')) {
+            document.getElementById('otherDiscoveryGroup').style.display = 'none';
+        }
+    } catch (err) {
+        console.error('Supabase insert failed:', err);
+        showToast('❌ ' + (err.message || 'Something went wrong. Please try again.'), 'error');
+        submitButton.innerHTML = originalHTML;
+    } finally {
+        submitButton.disabled = false;
+    }
 }
 
-function showSuccess(btn, originalText, form) {
+function showSuccess(btn, originalHTML, form) {
     const messages = {
         en: '✓ Submitted Successfully!',
         ar: '✓ تم التسجيل بنجاح!',
@@ -316,13 +311,55 @@ function showSuccess(btn, originalText, form) {
     btn.style.background = '#10B981';
     btn.style.borderColor = '#10B981';
 
+    showToast(messages[currentLanguage], 'success');
     form.reset();
 
     setTimeout(() => {
-        btn.textContent = originalText;
+        btn.innerHTML = originalHTML;
         btn.style.background = '';
         btn.style.borderColor = '';
     }, 3000);
+}
+
+function showToast(message, type = 'success') {
+    // Remove any existing toast
+    const existing = document.getElementById('speakup-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'speakup-toast';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: ${type === 'success' ? '#10B981' : '#E63946'};
+        color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        white-space: nowrap;
+    `;
+    document.body.appendChild(toast);
+
+    // Animate in
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+
+    // Animate out after 4s
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
 }
 
 // ============================================

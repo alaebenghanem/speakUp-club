@@ -210,7 +210,8 @@ header {
   align-items: center;
 }
 
-.logo-icon i {
+.logo-icon i,
+.logo-icon svg {
   width: 28px;
   height: 28px;
 }
@@ -587,7 +588,8 @@ nav {
   align-items: center;
 }
 
-.value-icon i {
+.value-icon i,
+.value-icon svg {
   width: 48px;
   height: 48px;
 }
@@ -654,7 +656,8 @@ nav {
   color: var(--color-primary);
 }
 
-.session-icon i {
+.session-icon i,
+.session-icon svg {
   width: 40px;
   height: 40px;
 }
@@ -766,7 +769,7 @@ nav {
 }
 
 .join-container {
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -775,11 +778,9 @@ nav {
   margin-bottom: var(--spacing-lg);
 }
 
+/* On desktop the form is full-width, no more side-by-side grid */
 .contact-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-  align-items: start;
+  display: block;
 }
 
 .contact-form {
@@ -790,6 +791,19 @@ nav {
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+/* Two-column grid for short inputs on desktop */
+.form-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--spacing-md);
+}
+
+@media (max-width: 600px) {
+  .form-fields-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-form h3 {
@@ -838,7 +852,8 @@ nav {
   align-items: center;
 }
 
-.input-with-icon i {
+.input-with-icon i,
+.input-with-icon svg {
   position: absolute;
   left: 1rem;
   top: 50%;
@@ -1009,6 +1024,127 @@ body.rtl .social-item:hover {
 
 .social-item:hover .social-icon {
   color: var(--color-white);
+}
+
+/* ============================================
+   CONNECT WITH US SECTION
+   ============================================ */
+#connect {
+  background: var(--bg-secondary);
+  min-height: auto;
+  padding: var(--spacing-xl) 0;
+}
+
+.connect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.connect-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.connect-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--card-accent, var(--color-primary));
+  border-radius: 4px 0 0 4px;
+  transition: width var(--transition-normal);
+}
+
+.connect-card:hover::before {
+  width: 100%;
+  opacity: 0.08;
+}
+
+.connect-card:hover {
+  border-color: var(--card-accent, var(--color-primary));
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* Platform accent colors */
+#connect-telegram  { --card-accent: #26A5E4; }
+#ig-link { --card-accent: #E1306C; }
+#connect-tiktok    { --card-accent: #010101; }
+#fb-link  { --card-accent: #1877F2; }
+#connect-email     { --card-accent: var(--color-primary); }
+
+.connect-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+  color: var(--card-accent, var(--color-primary));
+  transition: var(--transition-normal);
+}
+
+.connect-icon i,
+.connect-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.connect-card:hover .connect-icon {
+  background: var(--card-accent, var(--color-primary));
+  color: #fff;
+}
+
+.connect-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.connect-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.connect-handle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.connect-arrow {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.connect-card:hover .connect-arrow {
+  color: var(--card-accent, var(--color-primary));
+  transform: translateX(4px);
+}
+
+.rtl .connect-card:hover .connect-arrow {
+  transform: translateX(-4px);
 }
 
 /* ============================================

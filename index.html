@@ -8,31 +8,25 @@
     content="Speak Up - A safe space for shy and non-native speakers to gain confidence through supportive, judgment-free sessions.">
   <title>Speak Up - Your Voice Matters</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Favicon & Manifest -->
   <link rel="icon" type="image/jpeg" href="speak up logo.jpg">
   <link rel="apple-touch-icon" href="speak up logo.jpg">
   <link rel="manifest" href="manifest.json">
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- EmailJS for SMTP Integration -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
-  <!-- Header -->
   <header>
     <div class="header-content">
       <a href="#home" class="logo">
@@ -153,7 +147,7 @@
     </div>
   </section>
 
-  <!-- Join/Contact Section -->
+  <!-- Join Section: Registration Form -->
   <section id="join">
     <div class="container join-container">
       <div class="join-intro fade-in">
@@ -163,13 +157,13 @@
         </p>
       </div>
 
-      <div class="contact-wrapper">
-        <!-- Contact Form -->
-        <div class="contact-form fade-in">
-          <h3 data-i18n="join.formTitle">Registration Form</h3>
-          <form id="contactForm">
+      <!-- Registration Form -->
+      <div class="contact-form fade-in">
+        <h3 data-i18n="join.formTitle">Registration Form</h3>
+        <form id="contactForm">
 
-            <!-- Basic Information -->
+          <!-- Basic Information -->
+          <div class="form-fields-grid">
             <div class="form-group">
               <label for="name" data-i18n="join.form.name">Full Name</label>
               <input type="text" id="name" name="name" required>
@@ -177,7 +171,7 @@
 
             <div class="form-group">
               <label for="age" data-i18n="join.form.age">Age</label>
-              <input type="number" id="age" name="age" required min="13">
+              <input type="number" id="age" name="age" required>
             </div>
 
             <div class="form-group">
@@ -200,109 +194,113 @@
                 <option value="advanced" data-i18n="join.form.levelOptions.advanced">Advanced</option>
               </select>
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="aboutMe" data-i18n="join.form.aboutMe">Tell us about yourself</label>
-              <textarea id="aboutMe" name="aboutMe" required
-                data-i18n-attr="placeholder:join.form.aboutMePlaceholder"></textarea>
-            </div>
+          <div class="form-group">
+            <label for="aboutMe" data-i18n="join.form.aboutMe">Tell us about yourself</label>
+            <textarea id="aboutMe" name="aboutMe" required
+              data-i18n-attr="placeholder:join.form.aboutMePlaceholder"></textarea>
+          </div>
 
-            <div class="form-group">
-              <label for="goals" data-i18n="join.form.goals">What do you aim to achieve?</label>
-              <textarea id="goals" name="goals" required
-                data-i18n-attr="placeholder:join.form.goalsPlaceholder"></textarea>
-            </div>
+          <div class="form-group">
+            <label for="goals" data-i18n="join.form.goals">What do you aim to achieve?</label>
+            <textarea id="goals" name="goals" required
+              data-i18n-attr="placeholder:join.form.goalsPlaceholder"></textarea>
+          </div>
 
-            <div class="form-group">
-              <label data-i18n="join.form.social">Social media username(s) (optional)</label>
-              <p class="form-hint" data-i18n="join.form.section1Note">This helps us communicate and verify real
-                participants.</p>
-              <div class="social-inputs">
-                <div class="input-with-icon">
-                  <i data-lucide="instagram"></i>
-                  <input type="text" id="instagram" name="instagram" placeholder="Instagram: @_____">
-                </div>
-                <div class="input-with-icon">
-                  <i data-lucide="music-2"></i>
-                  <input type="text" id="tiktok" name="tiktok" placeholder="TikTok: @_____">
-                </div>
+
+          <!-- Values & Agreement -->
+          <div class="form-group checkbox-group">
+            <label class="checkbox-container">
+              <span data-i18n="join.form.agreement">Do you agree to respect all members and maintain a safe,
+                supportive, and judgment-free environment?</span>
+              <input type="checkbox" id="agreement" name="agreement" required>
+              <div class="agreement-row">
+                <span class="checkmark"></span>
+                <span class="agreement-text" data-i18n="join.form.agreementYes">Yes, I agree</span>
               </div>
-            </div>
+            </label>
+          </div>
 
-            <!-- Motivation -->
-            <div class="form-group">
-              <label for="motivation" data-i18n="join.form.motivation">Why do you want to join this English speaking
-                club?</label>
-              <textarea id="motivation" name="motivation" required
-                data-i18n-attr="placeholder:join.form.motivationPlaceholder"></textarea>
-            </div>
+          <!-- Discovery -->
+          <div class="form-group">
+            <label for="discovery" data-i18n="join.form.discovery">How did you hear about us?</label>
+            <select id="discovery" name="discovery" required>
+              <option value="" disabled selected data-i18n="join.discoveryOptions.placeholder">Select an option</option>
+              <option value="instagram" data-i18n="join.discoveryOptions.instagram">Instagram</option>
+              <option value="tiktok" data-i18n="join.discoveryOptions.tiktok">TikTok</option>
+              <option value="friend" data-i18n="join.discoveryOptions.friend">Friend</option>
+              <option value="website" data-i18n="join.discoveryOptions.website">Website</option>
+              <option value="other" data-i18n="join.discoveryOptions.other">Other</option>
+            </select>
+          </div>
+          <div class="form-group" id="otherDiscoveryGroup" style="display: none;">
+            <input type="text" id="otherDiscovery" name="otherDiscovery" placeholder="Please specify...">
+          </div>
 
-            <!-- Values & Agreement -->
-            <div class="form-group checkbox-group">
-              <label class="checkbox-container">
-                <span data-i18n="join.form.agreement">Do you agree to respect all members and maintain a safe,
-                  supportive, and judgment-free environment?</span>
-                <input type="checkbox" id="agreement" name="agreement" required>
-                <div class="agreement-row">
-                  <span class="checkmark"></span>
-                  <span class="agreement-text" data-i18n="join.form.agreementYes">Yes, I agree</span>
-                </div>
-              </label>
-            </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn" data-i18n="join.form.submit">
+            Submit Registration
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
 
-            <!-- Discovery -->
-            <div class="form-group">
-              <label for="discovery" data-i18n="join.form.discovery">How did you hear about us?</label>
-              <select id="discovery" name="discovery" required>
-                <option value="" disabled selected data-i18n="join.discoveryOptions.placeholder">Select an option
-                </option>
-                <option value="instagram" data-i18n="join.discoveryOptions.instagram">Instagram</option>
-                <option value="tiktok" data-i18n="join.discoveryOptions.tiktok">TikTok</option>
-                <option value="friend" data-i18n="join.discoveryOptions.friend">Friend</option>
-                <option value="website" data-i18n="join.discoveryOptions.website">Website</option>
-                <option value="other" data-i18n="join.discoveryOptions.other">Other</option>
-              </select>
-            </div>
-            <div class="form-group" id="otherDiscoveryGroup" style="display: none;">
-              <input type="text" id="otherDiscovery" name="otherDiscovery" placeholder="Please specify...">
-            </div>
+  <!-- Connect With Us Section -->
+  <section id="connect">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title" data-i18n="join.socialTitle">Connect With Us</h2>
+        <p class="section-subtitle" data-i18n="join.socialSubtitle">Follow along and stay in the loop</p>
+      </div>
 
-            <button type="submit" class="btn btn-primary" data-i18n="join.form.submit">
-              Submit Registration
-            </button>
-          </form>
-        </div>
+      <div class="connect-grid fade-in">
+        <a href="https://www.instagram.com/speak.up.club_/" class="connect-card" target="_blank" rel="noopener"
+          id="ig-link">
+          <span class="connect-icon instagram-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </span>
+          <div class="connect-info">
+            <span class="connect-name" data-i18n="join.social.instagram">Follow on Instagram</span>
+            <span class="connect-handle">@speak.up.club_</span>
+          </div>
+          <i data-lucide="arrow-right" class="connect-arrow"></i>
+        </a>
 
-        <!-- Social Links -->
-        <div class="social-links fade-in">
-          <h3 data-i18n="join.socialTitle">Connect With Us</h3>
+        <a href="https://www.tiktok.com/@speakup.club1?_r=1&_t=ZS-93n0IbPbesP" class="connect-card" target="_blank"
+          rel="noopener" id="connect-tiktok">
+          <span class="connect-icon tiktok-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music-2"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg>
+          </span>
+          <div class="connect-info">
+            <span class="connect-name" data-i18n="join.social.tiktok">Follow on TikTok</span>
+            <span class="connect-handle">@speakup.club1</span>
+          </div>
+          <i data-lucide="arrow-right" class="connect-arrow"></i>
+        </a>
 
-          <a href="https://t.me/speeeakup" class="social-item" target="_blank" rel="noopener">
-            <span class="social-icon"><i data-lucide="send"></i></span>
-            <span data-i18n="join.social.telegram">Join our Telegram</span>
-          </a>
+        <a href="https://www.facebook.com/share/17W4UELYZy/" class="connect-card" target="_blank" rel="noopener"
+          id="fb-link">
+          <span class="connect-icon facebook-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </span>
+          <div class="connect-info">
+            <span class="connect-name" data-i18n="join.social.facebook">Follow on Facebook</span>
+            <span class="connect-handle">Speak Up Club</span>
+          </div>
+          <i data-lucide="arrow-right" class="connect-arrow"></i>
+        </a>
 
-          <a href="https://www.instagram.com/speak.up.club_/" class="social-item" target="_blank" rel="noopener">
-            <span class="social-icon"><i data-lucide="instagram"></i></span>
-            <span data-i18n="join.social.instagram">Follow on Instagram</span>
-          </a>
-
-          <a href="https://www.tiktok.com/@speakup.club1?_r=1&_t=ZS-93n0IbPbesP" class="social-item" target="_blank"
-            rel="noopener">
-            <span class="social-icon"><i data-lucide="music-2"></i></span>
-            <span data-i18n="join.social.tiktok">Follow on TikTok</span>
-          </a>
-
-          <a href="https://www.facebook.com/share/17W4UELYZy/" class="social-item" target="_blank" rel="noopener">
-            <span class="social-icon"><i data-lucide="facebook"></i></span>
-            <span data-i18n="join.social.facebook">Follow on Facebook</span>
-          </a>
-
-          <a href="mailto:speakupclubens@gmail.com" class="social-item">
-            <span class="social-icon"><i data-lucide="mail"></i></span>
-            <span>speakupclubens@gmail.com</span>
-          </a>
-        </div>
+        <a href="mailto:speakupclubens@gmail.com" class="connect-card" id="connect-email">
+          <span class="connect-icon email-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </span>
+          <div class="connect-info">
+            <span class="connect-name">Send us an Email</span>
+            <span class="connect-handle">speakupclubens@gmail.com</span>
+          </div>
+          <i data-lucide="arrow-right" class="connect-arrow"></i>
+        </a>
       </div>
     </div>
   </section>
@@ -311,7 +309,7 @@
   <footer>
     <p class="footer-tagline" data-i18n="footer.tagline">Speak Up - Where Every Voice Matters</p>
     <p class="footer-copyright" data-i18n="footer.copyright">
-      © 2026 Speak Up Club.
+      © 2026 ENS Speak Up Club.
     </p>
   </footer>
 

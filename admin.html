@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speak Up Admin Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css"> <!-- Import base styles for variables -->
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="speak up logo.jpg">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- 1. Password Gate Overlay -->
+    <div id="authOverlay" class="auth-overlay active">
+        <div class="auth-modal">
+            <div class="auth-header">
+                <i data-lucide="shield-check" class="auth-icon"></i>
+                <h2>Admin Login</h2>
+                <p>Sign in to view club registrations.</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <input type="email" id="adminEmail" placeholder="Email address..." required autofocus>
+                <input type="password" id="adminPassword" placeholder="Password..." required>
+                <div id="authError" class="auth-error hidden">Invalid credentials</div>
+                <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Main Dashboard (Hidden by default) -->
+    <div id="dashboardArea" class="dashboard-area hidden">
+
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <div class="admin-logo">
+                    <i data-lucide="mic"></i>
+                    <span>SpeakUp Admin</span>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i data-lucide="log-out"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-container">
+
+                <!-- Page Title & Actions -->
+                <div class="page-header">
+                    <div>
+                        <h1>Registrations</h1>
+                        <p class="subtitle">Manage and view all club applications.</p>
+                    </div>
+                    <button id="exportCsvBtn" class="btn btn-primary btn-sm">
+                        <i data-lucide="download"></i> Export CSV
+                    </button>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary"><i data-lucide="users"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Submissions</span>
+                            <span class="stat-value" id="statTotal">-</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i data-lucide="bar-chart"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Beginner / Int / Adv</span>
+                            <span class="stat-value" id="statLevels">- / - / -</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i data-lucide="trending-up"></i></div>
+                        <div class="stat-content">
+                            <span class="stat-label">Top Source</span>
+                            <span class="stat-value" id="statSource">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls: Search & Filters -->
+                <div class="controls-bar">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name, email, phone...">
+                    </div>
+                    <div class="filters-group">
+                        <select id="filterLevel">
+                            <option value="">All Levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                        <select id="filterSource">
+                            <option value="">All Sources</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="friend">Friend</option>
+                            <option value="website">Website</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <button id="refreshBtn" class="btn-icon" title="Refresh Data">
+                            <i data-lucide="refresh-cw"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Level</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Rows populated by JS -->
+                            <tr>
+                                <td colspan="7" class="loading-state">
+                                    <i data-lucide="loader-2" class="spin"></i> Loading data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 3. Details Modal -->
+    <div id="detailsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submission Details</h3>
+                <button id="closeModalBtn" class="btn-close"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Details populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="admin.js"></script>
+</body>
+
+</html>
