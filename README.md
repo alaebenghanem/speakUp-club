@@ -10,7 +10,8 @@
 - **🌗 Dark/Light Mode:** A built-in theme toggle for a comfortable viewing experience in any lighting.
 - **📱 Fully Responsive:** Optimized key layouts for desktop, tablet, and mobile devices.
 - **✨ Modern UI/UX:** Features smooth sound-wave animations, glassmorphism effects, and interactive elements.
-- **📝 Registration System:** Integrated contact form capable of sending registrations directly to email via **EmailJS**.
+- **📝 Registration System:** Integrated contact form powered by **Supabase** for secure data storage.
+- **🔐 Admin Dashboard:** A protected administration panel to manage registrations, view submissions, and track club growth.
 - **💬 Social Integration:** Direct links to community channels on Instagram, TikTok, Facebook, and Telegram.
 
 ## 🛠️ Technologies Used
@@ -19,24 +20,28 @@
 - **CSS3:** Custom styling with CSS variables for theming and animations.
 - **JavaScript (ES6+):** Logic for state management, language switching, and form handling.
 - **Lucide Icons:** Lightweight and beautiful SVG icons.
-- **EmailJS:** Serverless email functionality for the registration form.
+- **Supabase:** Backend-as-a-Service for database management and authentication.
 
 ## 📂 Project Structure
 
 ```bash
 speakUp-club/
-├── index.html          # Main HTML structure
-├── styles.css          # All styling, themes, and animations
-├── script.js           # Core logic (Theme, Lang, Form handling)
+├── index.html          # Main landing page
+├── admin.html          # Administration dashboard
+├── styles.css          # Main styles and animations
+├── admin.css           # Admin-specific styling
+├── script.js           # Core landing page logic
+├── admin.js            # Admin panel logic & Auth
 ├── content.js          # Translation dictionaries (EN, AR, FR)
 ├── manifest.json       # Web App Manifest for mobile support
+├── supabase_schema.sql # Database schema for Supabase setup
 ├── speak up logo.jpg   # Project logo/favicon
 └── README.md           # Project documentation
 ```
 
 ## ⚙️ Setup & Configuration
 
-This is a static website, so it requires no backend server. However, to make the **Contact Form** work, you need to configure **EmailJS**.
+This project uses **Supabase** for storing registrations and managing the admin panel.
 
 1.  **Clone the repository:**
     ```bash
@@ -44,15 +49,14 @@ This is a static website, so it requires no backend server. However, to make the
     cd speakup-club
     ```
 
-2.  **Configure EmailJS:**
-    *   Open `script.js`.
-    *   Locate the `emailjs.init` and `emailjs.send` functions.
-    *   Replace the placeholder strings with your actual API keys from the [EmailJS Dashboard](https://www.emailjs.com/):
+2.  **Supabase Setup:**
+    *   Create a new project on [Supabase](https://supabase.com/).
+    *   Run the queries in `supabase_schema.sql` in your Supabase SQL Editor to create the `registrations` table.
+    *   Open `script.js` and `admin.js`.
+    *   Replace the placeholder URL and Anon Key with your own project credentials:
         ```javascript
-        // In script.js
-        emailjs.init("YOUR_PUBLIC_KEY");
-        // ...
-        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData)
+        const SUPABASE_URL = 'https://your-project-id.supabase.co';
+        const SUPABASE_KEY = 'your-anon-key';
         ```
 
 3.  **Run Locally:**
