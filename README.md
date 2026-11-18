@@ -1,79 +1,94 @@
-# 🎤 Speak Up Club
+<div align="center">
 
-**Speak Up** is a modern, inclusive web platform designed to help shy and non-native English speakers find their voice. It provides a safe, judgment-free environment for members to practice speaking, engage in debates, and build confidence through community support.
+# 🎤 Speak Up Club — ENS
 
-![Speak Up Hero Section](speak%20up%20logo.jpg)
+A modern, multilingual web platform for the **Speak Up** English-speaking club at ENS — a safe, judgment-free space for shy and non-native speakers to practice, grow, and find their voice.
 
-## 🚀 Features
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Netlify" />
+</p>
 
-- **🌐 Multi-Language Support:** Full translation support for **English**, **Arabic**, and **French** with a seamless language switcher.
-- **🌗 Dark/Light Mode:** A built-in theme toggle for a comfortable viewing experience in any lighting.
-- **📱 Fully Responsive:** Optimized key layouts for desktop, tablet, and mobile devices.
-- **✨ Modern UI/UX:** Features smooth sound-wave animations, glassmorphism effects, and interactive elements.
-- **📝 Registration System:** Integrated contact form powered by **Supabase** for secure data storage.
-- **🔐 Admin Dashboard:** A protected administration panel to manage registrations, view submissions, and track club growth.
-- **💬 Social Integration:** Direct links to community channels on Instagram, TikTok, Facebook, and Telegram.
+<p align="center">
+  Supports <strong>English</strong>, <strong>Arabic (RTL)</strong>, and <strong>French</strong> — with a full <strong>Dark / Light</strong> theme system and a protected <strong>Admin Dashboard</strong> for club officers.
+</p>
 
-## 🛠️ Technologies Used
+</div>
 
-- **HTML5:** Semantic structure and accessibility.
-- **CSS3:** Custom styling with CSS variables for theming and animations.
-- **JavaScript (ES6+):** Logic for state management, language switching, and form handling.
-- **Lucide Icons:** Lightweight and beautiful SVG icons.
-- **Supabase:** Backend-as-a-Service for database management and authentication.
+---
 
-## 📂 Project Structure
+## 📸 Preview
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="assets/D.png" alt="Landing Page" width="260px" />
+        <br /><sub><b>Landing Page</b></sub>
+      </td>
+      <td align="center">
+        <img src="assets/E.png" alt="Registration Form" width="260px" />
+        <br /><sub><b>Admin Panel</b></sub>
+      </td>
+      <td align="center">
+        <img src="assets/F.png" alt="Admin Dashboard" width="260px" />
+        <br /><sub><b>Admin Dashboard</b></sub>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## ✨ Features
+
+- 🌍 **Trilingual** — English, Arabic (RTL), and French with a one-click language switcher
+- 🌗 **Dark / Light Mode** — Theme toggle persisted across visits
+- 📱 **Fully Responsive** — Optimized for desktop, tablet, and mobile
+- 📝 **Registration Form** — Collects member info and stores it securely via Supabase
+- 🔐 **Admin Dashboard** — Protected panel to view, search, filter, delete registrations, and export CSV
+- 💬 **Social Integration** — Links to Instagram, TikTok, Facebook, and Telegram
+
+---
+
+## 🛠️ Tech Stack
+
+| | Technology |
+|---|---|
+| Frontend | HTML5, CSS3, Vanilla JavaScript (ES6+) |
+| Icons | Lucide Icons |
+| Backend | Supabase (PostgreSQL + Auth) |
+| Hosting | Netlify |
+
+---
+
+## ⚙️ Technical Highlights
+
+- Multilingual architecture (EN / AR / FR) with `data-i18n` attribute system
+- Automatic RTL layout switching for Arabic
+- Supabase Auth protecting the admin panel
+- Row Level Security (RLS) — public can only insert, admins can read and delete
+- Dynamic dashboard statistics and CSV export
+- Scroll-triggered animations via `IntersectionObserver`
+- Persistent theme and language preferences via `localStorage`
+
+---
+
+## 🚀 Running Locally
 
 ```bash
-speakUp-club/
-├── index.html          # Main landing page
-├── admin.html          # Administration dashboard
-├── styles.css          # Main styles and animations
-├── admin.css           # Admin-specific styling
-├── script.js           # Core landing page logic
-├── admin.js            # Admin panel logic & Auth
-├── content.js          # Translation dictionaries (EN, AR, FR)
-├── manifest.json       # Web App Manifest for mobile support
-├── supabase_schema.sql # Database schema for Supabase setup
-├── speak up logo.jpg   # Project logo/favicon
-└── README.md           # Project documentation
+git clone https://github.com/alaebenghanem/speakUp-club.git
+cd speakUp-club
+npm run dev   # → http://localhost:3000
 ```
 
-## ⚙️ Setup & Configuration
+> Requires a Supabase project — run `supabase_schema.sql` in the SQL Editor and add your credentials to `script.js` and `admin.js`.
 
-This project uses **Supabase** for storing registrations and managing the admin panel.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/speakup-club.git
-    cd speakup-club
-    ```
-
-2.  **Supabase Setup:**
-    *   Create a new project on [Supabase](https://supabase.com/).
-    *   Run the queries in `supabase_schema.sql` in your Supabase SQL Editor to create the `registrations` table.
-    *   Open `script.js` and `admin.js`.
-    *   Replace the placeholder URL and Anon Key with your own project credentials:
-        ```javascript
-        const SUPABASE_URL = 'https://your-project-id.supabase.co';
-        const SUPABASE_KEY = 'your-anon-key';
-        ```
-
-3.  **Run Locally:**
-    *   Simply open `index.html` in any modern web browser.
-    *   Or use a live server extension (like Live Server in VS Code) for the best experience.
-
-## 🌍 Deployment
-
-Since this is a static site, it can be deployed easily on platforms like:
-*   **Netlify** (Drag and drop the folder)
-*   **Vercel**
-*   **GitHub Pages**
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/speakup-club/issues).
+---
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+MIT — Built with ❤️ for the **Speak Up Club** at ENS.

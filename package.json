@@ -1,0 +1,22 @@
+{
+  "name": "speakup-club",
+  "version": "1.0.0",
+  "description": "**Speak Up** is a modern, inclusive web platform designed to help shy and non-native English speakers find their voice. It provides a safe, judgment-free environment for members to practice speaking, engage in debates, and build confidence through community support.",
+  "main": "admin.js",
+  "scripts": {
+    "dev": "npx serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alaebenghanem/speakUp-club.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/alaebenghanem/speakUp-club/issues"
+  },
+  "homepage": "https://github.com/alaebenghanem/speakUp-club#readme"
+}
